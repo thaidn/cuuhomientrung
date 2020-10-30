@@ -42,66 +42,67 @@ Bằng việc duy trì một nguồn thông tin đầy đủ, được cập nh�
 
 CÙNG CHUNG TAY VÌ KHÚC RUỘT MIỀN TRUNG !!!
 
-# HƯỚNG DẪN CÀI ĐẶT
+# Hướng dẫn cài đặt dành cho lập trình viên
 
 ## Cài đặt nhanh
 
-[Hướng dẫn cài đặt bằng Docker](docs/installation-using-docker/SET_UP_DOCKER.md)
+1. [Hướng dẫn cài đặt bằng Docker](docs/installation-using-docker/SET_UP_DOCKER.md) (dễ nhất)
 
-[Hướng dẫn cài đặt không dùng Docker](docs/INSTALLATION.md)
+2. [Hướng dẫn cài đặt không dùng Docker](docs/INSTALLATION.md)
 
 ## Cài đặt tiêu chuẩn
 
-1. Cài đặt các thư viện cần thiết (cần cài Python3.6 trở lên và Pip3 trước)
+### Cài đặt Python3.6 trở lên, Pip3 và các thư viện
 
-```
+Trên Debian/Ubuntu, chạy
+
+```shell
+sudo apt-get update
+sudo apt-get -y install python3.8
+sudo apt-get -y install python3-pip
 pip3 install -r requirements.txt
 ```
 
-~~2. Thay đổi cấu hình database từ postgresql sang sqlite (để chạy được ở local)~~
+Trên macOS, cài [Homebrew](https://brew.sh/), rồi chạy
 
-~~- trong file project/app/settings.py, comment out config postgresql và thay bằng phần config sqlite~~
+```shell
+brew install python@3.8
+pip3 install -r requirements.txt
+```
 
-2. Cài đặt PostgreSQL và tạo database shema
+### Cài đặt PostgreSQL
 
-- PostgreSQL
-  - Debian/Ubuntu
-    - Update mirror
-    ```
-    sudo apt update
-    ```
-    - Cài đặt postgresql
-    ```
-    sudo apt install postgresql
-    ```
-    - Cài đặt postgresql-contrib (để sử dụng `UnaccentExtension`) nếu chưa được cài sẵn cùng postgresql ở trên
-    ```
-    sudo apt install postgresql-contrib
-    ```
-  - Centos
-    - Cài đặt postgresql
-    ```
-    sudo yum install postgresql
-    ```
-    - Cài đặt postgresql-contrib
-    ```
-    sudo yum install postgresql*contrib
-    ```
-  - Docker image: đã được cài sẵn `postgres-contrib`
-  - Các hệ điều hành khác vui lòng cài đặt `postgresql` và `postgresql-contrib` theo hướng dẫn chính thức [tại đây](https://www.postgresql.org/download/)
-- chạy script sau để tạo lại schema
+- Debian/Ubuntu
+
+  ```shell
+  sudo apt update
+  sudo apt install postgresql
+  sudo apt install postgresql-contrib
+  ```
+- Centos
+
+  ```
+  sudo yum install postgresql
+  sudo yum install postgresql*contrib
+  ```
+
+- Docker image: đã được cài sẵn `postgres-contrib`.
+
+- Các hệ điều hành khác: vui lòng cài đặt `postgresql` và `postgresql-contrib` theo hướng dẫn chính thức [tại đây](https://www.postgresql.org/download/).
+
+### Tạo database schema
 
 ```
 bash run_migrate.sh
 ```
 
-3. Tạo tài khoản admin
+### Tạo tài khoản admin
 
 ```
 bash run_create_admin.sh
 ```
 
-4. Mặc định đăng nhập site bằng tài khoản admin
+### Mặc định đăng nhập site bằng tài khoản admin
 
 - trong file project/app/middleware.py, thay đổi username thành username của admin đã tạo ở bước 3
 
@@ -146,7 +147,7 @@ Các file scss và js hiện tại import tại file loader. Css sẽ tự rende
 
 ## Tích hợp API
 
-Restful api doc [tại đây](https://cuuhomientrung.info/api/)
+Xem RESTful API doc [tại đây](https://cuuhomientrung.info/api/).
 
 Sau khi bạn được cấp `api_token`, các request sẽ follow theo doc như bình thường. Ngoài ra bạn phải thêm vào header tham số sau
 
